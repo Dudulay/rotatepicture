@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div class="perspectiv">
+	<div id="wrap">
+		<img src="image/1.jpg" alt="" width="130" height="200">
+		<img src="image/2.jpg" alt="" width="130" height="200">
+		<img src="image/3.jpg" alt="" width="130" height="200">
+		<img src="image/4.jpg" alt="" width="130" height="200">
+		<img src="image/5.jpg" alt="" width="130" height="200">
+		<img src="image/6.jpg" alt="" width="130" height="200">
+		<img src="image/7.jpg" alt="" width="130" height="200">
+	</div>
+
+</div>
+	<script type="text/javascript">
+		var oImg= document.getElementsByTagName("img");
+		var nowX,nowY,lastX,lastY,minuX,minuY,roX = 0,roY = 0;
+		var owrap= document.getElementById("wrap");
+		(function(i){
+			var imglenth= oImg.length;
+			var deg=360/imglenth;
+			for(; i < imglenth ; i++){
+			oImg[i].style.transform = "rotateY("+deg*i+"deg) translateZ(350px)";
+			} 
+		})(0);
+
+		document.onmousedown = function(e){
+			//鼠标按下
+			var e = e || window.event;
+			lastX = e.clientX;
+			lastY = e.clientY;
+			this.onmousemove = function(e){
+			//鼠标移动
+			var e = e || window.event;
+			nowX = e.clientX;
+			nowY = e.clientY;
+			//计算差
+			minuX = nowX - lastX;
+			minuY = nowY - lastY;
+			//求旋转度数
+			roY += minuX * 0.1;
+			roX -= minuY * 0.2;
+
+			owrap.style.transform = "rotateX("+roX+"deg) rotateY("+roY+"deg)";
+			lastX = nowX;
+			lastY = nowY;
+			}
+			this.onmouseup = function(){
+				//鼠标松开
+				this.onmousemove=null;
+			}
+		}	
+	</script>
+</body>
+</html>
